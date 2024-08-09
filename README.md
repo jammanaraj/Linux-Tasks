@@ -1,1 +1,52 @@
 # Linux-Tasks
+#Task1 - Password Less Authentication between two linux VMS
+Streamlining Secure Remote Access: A Guide to Passwordless SSH Connections Between Linux Servers
+Prateek Malhotra
+Prateek Malhotra
+
+Establishing a passwordless SSH connection between two Linux servers is a common practice to streamline secure remote access. This tutorial will guide you through the steps to set up passwordless SSH authentication and offer troubleshooting tips if the connection doesn’t work as expected.
+
+Prerequisites
+Two Linux servers (Server A and Server B)
+Administrative access to both servers
+Step 1: Generate SSH Key Pair on Server A
+Log in to Server A using SSH or physical access.
+Open a terminal window.
+Generate an SSH key pair by running the following command:
+>ssh-keygen -t rsa
+You can press Enter to accept the default location for the key pair (~/.ssh/id_rsa) and leave the passphrase empty for passwordless authentication.
+
+4. Confirm the key generation by pressing Enter.
+5. This will create a private key (id_rsa) and a public key (id_rsa.pub) in the ~/.ssh/ directory.
+Step 2: Copy the Public Key to Server B
+Use the ssh-copy-id command to copy the public key to Server B:
+>ssh-copy-id user@serverB_IP
+Replace user with your username on Server B, and serverB_IP with the IP address or hostname of Server B.
+You will be prompted to enter the password for your user account on Server B.
+After successfully copying the public key, you should see a message confirming the key was added.
+Step 3: Test the Passwordless Connection
+Attempt to SSH into Server B from Server A:
+>ssh user@serverB_IP
+You should now be able to access Server B without being prompted for a password.
+
+Troubleshooting Tips
+If the passwordless connection doesn’t work, here are some troubleshooting steps:
+
+Check Permissions: Ensure the .ssh directory on both Server A and Server B has the correct permissions. It should be owned by the user and have restricted permissions:
+chmod 700 ~/.ssh 
+chmod 600 ~/.ssh/authorized_keys
+Key File Names: Verify that you are using the default key names (id_rsa and id_rsa.pub) or the names you specified during key generation.
+SSH Agent: Make sure you have added the private key to the SSH agent on Server A using ssh-add:
+ssh-add ~/.ssh/id_rsa
+3. Firewall and SELinux: Check if the firewall on either server is blocking SSH access and ensure SELinux permissions are not causing issues.
+
+4. Logs: Check the SSH server logs on Server B for any error messages:
+
+tail -f /var/log/auth.log  # On Ubuntu/Debian
+tail -f /var/log/secure    # On CentOS/RHEL
+5. Debugging Mode: You can run SSH in debugging mode to get more information:
+
+ssh -v user@serverB_IP
+This will provide detailed debug output, which can help pinpoint the issue.
+
+By following these steps and considering the troubleshooting tips, you should be able to establish a passwordless SSH connection between your Linux servers for secure and convenient remote access.
