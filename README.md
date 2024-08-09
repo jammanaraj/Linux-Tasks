@@ -1,8 +1,6 @@
 # Linux-Tasks
 #Task1 - Password Less Authentication between two linux VMS
 Streamlining Secure Remote Access: A Guide to Passwordless SSH Connections Between Linux Servers
-Prateek Malhotra
-Prateek Malhotra
 
 Establishing a passwordless SSH connection between two Linux servers is a common practice to streamline secure remote access. This tutorial will guide you through the steps to set up passwordless SSH authentication and offer troubleshooting tips if the connection doesn’t work as expected.
 
